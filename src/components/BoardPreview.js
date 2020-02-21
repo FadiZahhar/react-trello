@@ -1,13 +1,26 @@
 import React from 'react'
-
+import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types';
 
 class BoardPreview extends React.Component {
+	goToBoard = () => {
+		const boardId = this.props.board.id
+		this.props.history.push({ pathname: `/board/${boardId}` })
+	}
 	render() {
 		return (
-			<p>board preview</p>
+			<ul
+				className="board-preview-item"
+				onClick={this.goToBoard}
+				style={{ backgroundColor: this.props.board.background }}
+			>
+				<li>{this.props.board.title}</li>
+			</ul>
 		)
 	}
 }
 
-
-export default BoardPreview;
+BoardPreview.propTypes = {
+	board: PropTypes.object.isRequired,
+}
+export default withRouter(BoardPreview)
